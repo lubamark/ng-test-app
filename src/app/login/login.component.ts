@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   isPasswordVisible = false;
   isSubmitted = false;
   instructions = {
-    email: ['не менее 6 символов'],
+    login: ['не менее 6 символов'],
     password: [
       'латинскую букву в верхнем регистре',
       'латинскую букву в нижнем регистре',
