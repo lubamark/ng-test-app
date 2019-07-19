@@ -25,7 +25,7 @@
         *ngIf="!isSubmitted">
         <small >
           Логин должен содержать
-          <span *ngIf="instuctions.login.length === 1"; else loginInstructions>{{instructions.email}}</span>
+          <span *ngIf="instuctions.login.length === 1"; else loginInstructions>{{instructions[0].login}}</span>
           <ng-template #loginInstructions>
             <ul>
               <li *ngFor="let instruction of instructions.login">{{instruction}}</li>
@@ -58,7 +58,7 @@
     <div class="form-group">
       <label class="form-control-label" for="password">Пароль</label>
       <input
-        [type]="isPasswordVisible ? 'text' : 'password'"
+        type="password"
         class="form-control mb-2"
         id="password"
         placeholder="Пароль"
@@ -68,9 +68,12 @@
       <div *ngIf="!isSubmitted">
         <small >
           Пароль должен содержать
-          <ul>
-            <li *ngFor="let instruction of instructions.password">{{instruction}}</li>
-          </ul>
+           <span *ngIf="instuctions.password.length === 1"; else passwordInstructions>{{instructions[0].password}}</span>
+          <ng-template #passwordInstructions>
+            <ul>
+              <li *ngFor="let instruction of instructions.password">{{instruction}}</li>
+            </ul>
+          </ng-template>
         </small>
       </div>
       <div *ngIf="isSubmitted && form.get('password').invalid"
