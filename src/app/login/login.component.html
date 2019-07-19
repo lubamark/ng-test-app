@@ -25,7 +25,7 @@
         *ngIf="!isSubmitted">
         <small >
           Логин должен содержать
-          <span *ngIf="instuctions.login.length === 1"; else loginInstructions>{{instructions[0].login}}</span>
+          <span *ngIf="instructions.login.length === 1; else loginInstructions">{{instructions.login[0]}}</span>
           <ng-template #loginInstructions>
             <ul>
               <li *ngFor="let instruction of instructions.login">{{instruction}}</li>
@@ -68,7 +68,7 @@
       <div *ngIf="!isSubmitted">
         <small >
           Пароль должен содержать
-           <span *ngIf="instuctions.password.length === 1"; else passwordInstructions>{{instructions[0].password}}</span>
+           <span *ngIf="instructions.password.length === 1; else passwordInstructions">{{instructions.password[0]}}</span>
           <ng-template #passwordInstructions>
             <ul>
               <li *ngFor="let instruction of instructions.password">{{instruction}}</li>
