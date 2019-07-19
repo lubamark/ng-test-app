@@ -24,12 +24,23 @@
       <div
         *ngIf="!isSubmitted">
         <small >
-          Логин должен содержать {{instructions.email}}
+          Логин должен содержать
+          <span *ngIf="instuctions.login.length === 1"; else loginInstructions>{{instructions.email}}</span>
+          <ng-template #loginInstructions>
+            <ul>
+              <li *ngFor="let instruction of instructions.login">{{instruction}}</li>
+            </ul>
+          </ng-template>
         </small>
       </div>
 
       <div *ngIf="isSubmitted && form.get('login').invalid"
            class="invalid-feedback">
+        <div
+          *ngIf="form.get('password').errors['required'];
+            else notRequiredLogErrors">
+          Поле не должно быть пустым
+        </div>
 
         <ng-template #notRequiredLogErrors>
           <div
