@@ -1,0 +1,109 @@
+<div class="auth-form">
+  <h1 class="text-center mb-3">
+    Заполните форму.
+  </h1>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="form-group">
+      <div
+        *ngIf="message.text"
+        class="alert alert-{{message.type}}">
+        {{message.text}}
+      </div>
+      <label class="form-control-label" for="login">Логин</label>
+      <input
+        type="text"
+        class="form-control mb-2"
+        [ngClass]="{'is-invalid': form.get('login').invalid && isSubmitted}"
+        id="login" placeholder="Введите ваш логин"
+        formControlName="login"
+      >
+      <div
+        *ngIf="!isSubmitted">
+        <small >
+          Логин должен содержать {{instructions.email}}
+        </small>
+      </div>
+
+      <div *ngIf="isSubmitted && form.get('login').invalid"
+           class="invalid-feedback">
+
+        <ng-template #notRequiredLogErrors>
+          <div
+            *ngIf="form.get('login').errors.minlength">
+            {{
+            'Это поле слишком короткое. Введите еще '
+            + symbolsLasted(form.get('login').errors.minlength.requiredLength - form.get('login').errors.minlength.actualLength)
+            }}
+          </div>
+
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-control-label" for="password">Пароль</label>
+      <input
+        [type]="isPasswordVisible ? 'text' : 'password'"
+        class="form-control mb-2"
+        id="password"
+        placeholder="Пароль"
+        formControlName="password"
+        [ngClass]="{'is-invalid': form.get('password').invalid && isSubmitted}"
+      >
+      <div *ngIf="!isSubmitted">
+        <small >
+          Пароль должен содержать
+          <ul>
+            <li *ngFor="let instruction of instructions.password">{{instruction}}</li>
+          </ul>
+        </small>
+      </div>
+      <div *ngIf="isSubmitted && form.get('password').invalid"
+           class="invalid-feedback">
+        <div
+          *ngIf="form.get('password').errors['required'];
+            else notRequiredPassErrors">
+          Поле не должно быть пустым
+        </div>
+        <ng-template #notRequiredPassErrors>
+          Поле должно содержать
+          <ul>
+            <li
+              *ngIf="form.get('password').errors.minlength">
+              {{
+              'минимум ' + symbolsLasted(form.get('password').errors.minlength.requiredLength) + '. Введите еще '
+              + symbolsLasted(form.get('password').errors.minlength.requiredLength - form.get('password').errors.minlength.actualLength)
+              }}
+            </li>
+            <li
+              *ngIf="form.get('password').errors.noLatinUpper">
+              латинскую букву в верхнем регистре
+            </li>
+            <li
+              *ngIf="form.get('password').errors.noLatinLower">
+              латинскую букву в нижнем регистре
+            </li>
+            <li
+              *ngIf="form.get('password').errors.noNumber">
+              цифру
+            </li>
+            <li
+              *ngIf="form.get('password').errors.noPoint">
+              знак препинания
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="btn"
+      [ngClass]="{'btn-danger': isSubmitted && form.invalid, 'btn-success': !isSubmitted || form.valid }"
+    >Войти</button>
+  </form>
+</div>
+

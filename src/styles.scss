@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  font-size: 100%;
+  min-height: 100vh;
+}
+body {
+  min-height: 100vh;
+
+}
+
+.auth-form {
+  margin: 40px;
+  padding: 20px;
+}
